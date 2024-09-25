@@ -1,54 +1,55 @@
+import React, {useState, useMemo} from 'react'
 import styled from "styled-components";
-import bg from "../src/images/bg.jpg"
-import { InnerLayout, MainLayout } from "./styles/Layouts";
-import Orb from "./components/Orb/Orb";
-import Navigation from "./components/Navigation/Navigation";
-import React, { useState ,useMemo} from "react";
-import Dashboard from "./components/Dashboard/Dashboard";
-import Expense from "./components/Expense/Expense";
-import Income from "./components/Income/Income";
+import bg from './img/bg.png'
+import {MainLayout} from './styles/Layouts'
+import Orb from './Components/Orb/Orb'
+import Navigation from './Components/Navigation/Navigation'
+import Dashboard from './Components/Dashboard/Dashboard';
+import Income from './Components/Income/Income'
+import Expenses from './Components/Expenses/Expenses';
+import { useGlobalContext } from './context/globalContext';
 
 function App() {
-  const [active,setActive] = useState(1)
-  
-  const displayData = ()=>{
-    switch (active) {
+  const [active, setActive] = useState(1)
+
+  const global = useGlobalContext()
+  console.log(global);
+
+  const displayData = () => {
+    switch(active){
       case 1:
-        return <Dashboard></Dashboard>;
+        return <Dashboard />
       case 2:
-        return <Dashboard/>;
+        return <Dashboard />
       case 3:
-        return <Income/>;
-      case 4:
-        return <Expense/>;
+        return <Income />
+      case 4: 
+        return <Expenses />
+      default: 
+        return <Dashboard />
     }
   }
-  
+
   const orbMemo = useMemo(() => {
     return <Orb />
   },[])
 
   return (
     <AppStyled bg={bg} className="App">
-    <main>
       {orbMemo}
       <MainLayout>
         <Navigation active={active} setActive={setActive} />
         <main>
           {displayData()}
         </main>
-      
       </MainLayout>
-    </main>
     </AppStyled>
-
   );
 }
 
 const AppStyled = styled.div`
   height: 100vh;
   background-image: url(${props => props.bg});
-  height: 100%;
   position: relative;
   main{
     flex: 1;
@@ -62,6 +63,5 @@ const AppStyled = styled.div`
     }
   }
 `;
-
 
 export default App;
