@@ -11,7 +11,7 @@ function Navigation({active, setActive}) {
             <div className="user-con">
                 <img src={avatar} alt="" />
                 <div className="text">
-                    <h2>Zeel</h2>
+                    <h2>{localStorage.getItem("name")}</h2>
                     <p>Your Money</p>
                 </div>
             </div>
